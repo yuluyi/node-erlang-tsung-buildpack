@@ -291,3 +291,5 @@ echo "-----> Installing with make install"
 make install 2>&1 | indent
 
 echo "-----> Tsung installed"
+
+ls /app/otp/bin
