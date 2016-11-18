@@ -304,4 +304,4 @@ echo "-----> ls /app"
 ls /app
 
 echo "-----> ls /app/tsung/bin"
-ls /app/tsung/bin
+ls /app/tsung
