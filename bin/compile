@@ -299,3 +299,9 @@ echo "-----> Tsung installed"
 
 echo "-----> ls /app"
 ls /app
+
+echo "-----> ls /app/otp"
+ls /app/otp
+
+echo "-----> ls /app/otp/bin"
+ls /app/otp/bin
