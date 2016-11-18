@@ -252,7 +252,7 @@ function indent() {
 
 
 TSUNG_ROOT=$build/tsung
-mkdir ${TSUNG_ROOT}
+mkdir -p ${TSUNG_ROOT}
 
 # Download tsung
 
@@ -284,7 +284,7 @@ cd ${TSUNG_ROOT}
 # configure
 if [ -f configure ]; then
   echo "-----> Configuring"
-  ./configure 2>&1 | indent
+  ./configure --prefix=${TSUNG_ROOT} 2>&1 | indent
 fi
 
 # make
@@ -295,7 +295,13 @@ echo "-----> Installing with make install"
 
 make install 2>&1 | indent
 
+ln -s /app/tsung ${TSUNG_ROOT}
+export PATH=/app/tsung/bin:$PATH
+
 echo "-----> Tsung installed"
 
-ls /app/otp/bin
+echo "-----> ls /app"
 ls /app
+
+echo "-----> ls /app/tsung/bin"
+ls /app/tsung/bin
