@@ -37,11 +37,11 @@ install_nodejs() {
 
   local downloaded_file=$(ls /tmp/node-v*.tar.gz)
   mv $downloaded_file /tmp/node.tar.gz
-
-  echo "Downloaded [$filtered_url]"
-  tar xzf /tmp/node.tar.gz -C /tmp
-  rm -rf $dir/*
-  mv /tmp/node-v$resolved_version-$os-$cpu/* $dir
+  # 
+  # echo "Downloaded [$filtered_url]"
+  # tar xzf /tmp/node.tar.gz -C /tmp
+  # rm -rf $dir/*
+  # mv /tmp/node-v$resolved_version-$os-$cpu/* $dir
   # chmod +x $dir/bin/*
 }
 
