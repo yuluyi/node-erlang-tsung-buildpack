@@ -284,7 +284,7 @@ cd ${TSUNG_ROOT}
 # configure
 if [ -f configure ]; then
   echo "-----> Configuring"
-  ./configure --prefix=${TSUNG_ROOT} 2>&1 | indent
+  ./configure 2>&1 | indent
 fi
 
 # make
