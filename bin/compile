@@ -295,7 +295,7 @@ echo "-----> Installing with make install"
 
 make install 2>&1 | indent
 
-ln -s /app/tsung ${TSUNG_ROOT}
+ln -s ${TSUNG_ROOT} /app/tsung
 export PATH=/app/tsung/bin:$PATH
 
 echo "-----> Tsung installed"
