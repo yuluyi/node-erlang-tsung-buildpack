@@ -299,6 +299,3 @@ echo "-----> Tsung installed"
 
 echo "-----> ls /app"
 ls /app
-
-echo "-----> ls /app/tsung"
-ls /app/tsung
