@@ -99,76 +99,76 @@ install_bins() {
   else
     warn_node_engine "$node_engine"
     install_nodejs "$node_engine" "$BUILD_DIR/.heroku/node"
-    # install_npm "$npm_engine" "$BUILD_DIR/.heroku/node"
+    install_npm "$npm_engine" "$BUILD_DIR/.heroku/node"
   fi
 }
 
 header "Installing binaries"
 install_bins | output "$LOG_FILE"
 
-#
-# restore_cache() {
-#   local cache_status="$(get_cache_status)"
-#
-#   if [ "$cache_status" == "valid" ]; then
-#     local cache_directories=$(get_cache_directories)
-#     if [ "$cache_directories" == "" ]; then
-#       echo "Loading 2 from cacheDirectories (default):"
-#       restore_cache_directories "$BUILD_DIR" "$CACHE_DIR" "$DEFAULT_CACHE"
-#     else
-#       echo "Loading $(echo $cache_directories | wc -w | xargs) from cacheDirectories (package.json):"
-#       restore_cache_directories "$BUILD_DIR" "$CACHE_DIR" $cache_directories
-#     fi
-#   else
-#     echo "Skipping cache restore ($cache_status)"
-#   fi
-# }
-#
-# header "Restoring cache"
-# restore_cache | output "$LOG_FILE"
-#
-# build_dependencies() {
-#   if $PREBUILD; then
-#     echo "Prebuild detected (node_modules already exists)"
-#     rebuild_node_modules "$BUILD_DIR"
-#   else
-#     install_node_modules "$BUILD_DIR"
-#   fi
-# }
-#
-# header "Building dependencies"
-# build_dependencies | output "$LOG_FILE"
-#
-# cache_build() {
-#   local cache_directories=$(get_cache_directories)
-#
-#   echo "Clearing previous node cache"
-#   clear_cache
-#   if ! ${NODE_MODULES_CACHE:-true}; then
-#     echo "Skipping cache save (disabled by config)"
-#   elif [ "$cache_directories" == "" ]; then
-#     echo "Saving 2 cacheDirectories (default):"
-#     save_cache_directories "$BUILD_DIR" "$CACHE_DIR" "$DEFAULT_CACHE"
-#   else
-#     echo "Saving $(echo $cache_directories | wc -w | xargs) cacheDirectories (package.json):"
-#     save_cache_directories "$BUILD_DIR" "$CACHE_DIR" $cache_directories
-#   fi
-#   save_signature
-# }
-#
-# header "Caching build"
-# cache_build | output "$LOG_FILE"
-#
-# summarize_build() {
-#   cd $BUILD_DIR
-#   (npm ls --depth=0 | tail -n +2 || true) 2>/dev/null
-# }
-#
-# header "Build succeeded!"
-# summarize_build | output "$LOG_FILE"
-#
-# warn_no_start "$LOG_FILE"
-# warn_unmet_dep "$LOG_FILE"
+
+restore_cache() {
+  local cache_status="$(get_cache_status)"
+
+  if [ "$cache_status" == "valid" ]; then
+    local cache_directories=$(get_cache_directories)
+    if [ "$cache_directories" == "" ]; then
+      echo "Loading 2 from cacheDirectories (default):"
+      restore_cache_directories "$BUILD_DIR" "$CACHE_DIR" "$DEFAULT_CACHE"
+    else
+      echo "Loading $(echo $cache_directories | wc -w | xargs) from cacheDirectories (package.json):"
+      restore_cache_directories "$BUILD_DIR" "$CACHE_DIR" $cache_directories
+    fi
+  else
+    echo "Skipping cache restore ($cache_status)"
+  fi
+}
+
+header "Restoring cache"
+restore_cache | output "$LOG_FILE"
+
+build_dependencies() {
+  if $PREBUILD; then
+    echo "Prebuild detected (node_modules already exists)"
+    rebuild_node_modules "$BUILD_DIR"
+  else
+    install_node_modules "$BUILD_DIR"
+  fi
+}
+
+header "Building dependencies"
+build_dependencies | output "$LOG_FILE"
+
+cache_build() {
+  local cache_directories=$(get_cache_directories)
+
+  echo "Clearing previous node cache"
+  clear_cache
+  if ! ${NODE_MODULES_CACHE:-true}; then
+    echo "Skipping cache save (disabled by config)"
+  elif [ "$cache_directories" == "" ]; then
+    echo "Saving 2 cacheDirectories (default):"
+    save_cache_directories "$BUILD_DIR" "$CACHE_DIR" "$DEFAULT_CACHE"
+  else
+    echo "Saving $(echo $cache_directories | wc -w | xargs) cacheDirectories (package.json):"
+    save_cache_directories "$BUILD_DIR" "$CACHE_DIR" $cache_directories
+  fi
+  save_signature
+}
+
+header "Caching build"
+cache_build | output "$LOG_FILE"
+
+summarize_build() {
+  cd $BUILD_DIR
+  (npm ls --depth=0 | tail -n +2 || true) 2>/dev/null
+}
+
+header "Build succeeded!"
+summarize_build | output "$LOG_FILE"
+
+warn_no_start "$LOG_FILE"
+warn_unmet_dep "$LOG_FILE"
 
 
 
