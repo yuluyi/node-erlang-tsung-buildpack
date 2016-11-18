@@ -106,7 +106,7 @@ install_bins() {
 header "Installing binaries"
 install_bins | output "$LOG_FILE"
 
-echo $LOG_FILE
+cat $LOG_FILE
 #
 # restore_cache() {
 #   local cache_status="$(get_cache_status)"
